@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://kcjinql8h5xf"]
+
+[ext_resource type="Texture2D" uid="uid://o7lqvf4a0yte" path="res://images/shadertoy_out_bitofgold.jpg" id="1_pv4wy"]
+[ext_resource type="Texture2D" uid="uid://dovab4w7g3axm" path="res://images/_input.png" id="2_q0x05"]
+[ext_resource type="Shader" path="res://shaders/BitOfGold/c64/1_upscale_encode.gdshader" id="3_x2yp0"]
+[ext_resource type="Shader" path="res://shaders/BitOfGold/c64/2_decode.gdshader" id="4_3afeo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f6fg6"]
+shader = ExtResource("3_x2yp0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_218va"]
+shader = ExtResource("4_3afeo")
+
+[node name="Test" type="Node"]
+
+[node name="ShadertoyOutput" type="TextureRect" parent="."]
+offset_right = 2560.0
+offset_bottom = 1440.0
+texture = ExtResource("1_pv4wy")
+metadata/_edit_lock_ = true
+
+[node name="GodotShader" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="Image" type="TextureRect" parent="GodotShader"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_q0x05")
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="GodotShader"]
+copy_mode = 2
+
+[node name="UpscaleEncode" type="ColorRect" parent="GodotShader"]
+material = SubResource("ShaderMaterial_f6fg6")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackBufferCopy2" type="BackBufferCopy" parent="GodotShader"]
+copy_mode = 2
+
+[node name="Decode" type="ColorRect" parent="GodotShader"]
+material = SubResource("ShaderMaterial_218va")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

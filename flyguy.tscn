@@ -1,0 +1,79 @@
+[gd_scene load_steps=9 format=3 uid="uid://024sc61nyt7l"]
+
+[ext_resource type="Texture2D" uid="uid://djkh853awen4j" path="res://images/shadertoy_out_flyguy.jpg" id="1_ijd0b"]
+[ext_resource type="Texture2D" uid="uid://dovab4w7g3axm" path="res://images/_input.png" id="1_m3m1u"]
+[ext_resource type="Shader" path="res://shaders/Flyguy/Composite Artifacting/1_modulator.gdshader" id="2_yiv4t"]
+[ext_resource type="Shader" path="res://shaders/Flyguy/Composite Artifacting/2_demodulator.gdshader" id="3_r1waf"]
+[ext_resource type="Shader" path="res://shaders/Flyguy/Composite Artifacting/3_final_pass.gdshader" id="4_fuu3o"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ofrox"]
+shader = ExtResource("2_yiv4t")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6gapf"]
+shader = ExtResource("3_r1waf")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c66ak"]
+shader = ExtResource("4_fuu3o")
+
+[node name="Test" type="Node"]
+
+[node name="ShadertoyOutput" type="TextureRect" parent="."]
+offset_right = 2560.0
+offset_bottom = 1440.0
+texture = ExtResource("1_ijd0b")
+metadata/_edit_lock_ = true
+
+[node name="GodotShader" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="Image" type="TextureRect" parent="GodotShader"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_m3m1u")
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="GodotShader"]
+copy_mode = 2
+
+[node name="Modulator" type="ColorRect" parent="GodotShader"]
+material = SubResource("ShaderMaterial_ofrox")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackBufferCopy2" type="BackBufferCopy" parent="GodotShader"]
+copy_mode = 2
+
+[node name="Demodulator" type="ColorRect" parent="GodotShader"]
+material = SubResource("ShaderMaterial_6gapf")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackBufferCopy3" type="BackBufferCopy" parent="GodotShader"]
+copy_mode = 2
+
+[node name="FinalPass" type="ColorRect" parent="GodotShader"]
+material = SubResource("ShaderMaterial_c66ak")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
